@@ -1,22 +1,29 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../firebase";
 
 const SignUp = () => {
-  
-  const [email, setEmail] = useState("");        // store email
-  const [password, setPassword] = useState("");  // store password
-  const [error, setError] = useState("");        // store error messages
+  const [nickname, setNickname] = useState("");  // store nickname
+  const [email, setEmail] = useState("");        
+  const [password, setPassword] = useState("");  
+  const [error, setError] = useState("");        
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
-    e.preventDefault();                           // prevent page reload
+    e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/home");                          // redirect to Home on success
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      // ✅ Add nickname to user profile
+      await updateProfile(userCredential.user, {
+        displayName: nickname,
+      });
+
+      navigate("/home"); // redirect to Home on success
     } catch (err) {
-      setError("Failed to create account");      // show error if fails
+      console.error(err);
+      setError("Failed to create account");
     }
   };
 
@@ -32,9 +39,16 @@ const SignUp = () => {
       >
         <h2 className="text-white text-2xl font-semibold">Sign Up</h2>
 
-        {/* Error message */}
         {error && <p className="text-red-500">{error}</p>}
-        
+
+        {/* Nickname Input */}
+        <input
+          type="text"
+          placeholder="Nickname"
+          className="p-3 rounded bg-gray-800 text-white"
+          onChange={(e) => setNickname(e.target.value)}
+          required
+        />
 
         {/* Email Input */}
         <input
@@ -62,7 +76,6 @@ const SignUp = () => {
           Sign Up
         </button>
 
-        {/* Link to Login */}
         <p className="text-gray-400">
           Already have an account?{" "}
           <Link to="/" className="text-white hover:underline">

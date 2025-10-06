@@ -22,7 +22,7 @@ const Navbar = () => {
 
       {/* Right: User + Logout */}
       <div className="flex items-center space-x-4">
-        {user && <span className="text-white">{user.email}</span>}
+        {user && <span className="text-white">{user?.displayName || user?.email}</span>}
         <button 
           onClick={handleLogout} 
           className="text-white bg-red-600 px-3 py-1 rounded hover:bg-red-700"
