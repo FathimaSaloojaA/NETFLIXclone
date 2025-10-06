@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
 const SignUp = () => {
+  
   const [email, setEmail] = useState("");        // store email
   const [password, setPassword] = useState("");  // store password
   const [error, setError] = useState("");        // store error messages
@@ -33,6 +34,7 @@ const SignUp = () => {
 
         {/* Error message */}
         {error && <p className="text-red-500">{error}</p>}
+        
 
         {/* Email Input */}
         <input

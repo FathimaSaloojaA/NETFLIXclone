@@ -7,6 +7,7 @@ import MovieDetail from "./pages/MovieDetail";
 import Watchlist from "./pages/Watchlist";
 import Watch from "./pages/Watch";
 
+
 function App() {
   return (
     <Router>
@@ -17,6 +18,7 @@ function App() {
         <Route path="/watch/:id" element={<MovieDetail />}/>
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/play/:id" element={<Watch />} />
+        
 
         
       </Routes>

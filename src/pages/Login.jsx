@@ -5,6 +5,7 @@ import { auth } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
+   
   const [email, setEmail] = useState("");        // store user email
   const [password, setPassword] = useState("");  // store user password
   const [error, setError] = useState("");        // store error message
@@ -35,7 +36,8 @@ const Login = () => {
 
         {/* Error message */}
         {error && <p className="text-red-500">{error}</p>}
-
+         {/* Email Input */}
+        
         {/* Email Input */}
         <input
           type="email"

@@ -2,10 +2,19 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { fetchMovies } from "../api/tmdb";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useWatchlist } from "../context/WatchlistContext";
+
 
 const Home = () => {
   const [trending, setTrending] = useState([]);
   const [topRated, setTopRated] = useState([]);
+const navigate = useNavigate();
+const { watchlist, addToWatchlist, removeFromWatchlist } = useWatchlist();
+
+// The first trending movie (for the banner)
+const bannerMovie = trending[0];
+const isInWatchlist = bannerMovie && watchlist.find((m) => m.id === bannerMovie.id);
 
   useEffect(() => {
     const getMovies = async () => {
@@ -35,13 +44,28 @@ const Home = () => {
             <h1 className="text-6xl font-bold mb-4">{trending[0].title}</h1>
             <p className="text-lg mb-4 line-clamp-3">{trending[0].overview}</p>
             <div className="flex space-x-4">
-              <button className="bg-white text-black font-semibold px-8 py-3 rounded hover:bg-gray-200 transition">
-                Play
-              </button>
-              <button className="bg-gray-700 text-white font-semibold px-6 py-3 rounded hover:bg-gray-600 transition">
-                + My List
-              </button>
-            </div>
+  <button
+    className="bg-white text-black font-semibold px-8 py-3 rounded hover:bg-gray-200 transition"
+    onClick={() => navigate(`/play/${bannerMovie.id}`)}
+  >
+    Play
+  </button>
+
+  <button
+    className={`px-6 py-3 rounded font-semibold transition ${
+      isInWatchlist
+        ? "bg-green-600 hover:bg-green-700"
+        : "bg-gray-700 hover:bg-gray-600 text-white"
+    }`}
+    onClick={() => {
+      if (!isInWatchlist) addToWatchlist(bannerMovie);
+      else removeFromWatchlist(bannerMovie.id);
+    }}
+  >
+    {isInWatchlist ? "✓ Added" : "+ My List"}
+  </button>
+</div>
+
           </div>
         </div>
       )}
