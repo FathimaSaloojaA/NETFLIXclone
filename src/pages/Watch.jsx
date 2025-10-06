@@ -19,8 +19,9 @@ const Watch = () => {
 
         // Fetch videos
         const resVideos = await axios.get(
-          `https://api.themoviedb.org/3/movie/${id}/videos?7caa63e17ea72cb80a63ba5095148efd=YOUR_API_KEY&language=en-US`
-        );
+  `https://api.themoviedb.org/3/movie/${id}/videos?api_key=7caa63e17ea72cb80a63ba5095148efd&language=en-US`
+);
+
 
         // Find first YouTube trailer
         const trailer = resVideos.data.results.find(
