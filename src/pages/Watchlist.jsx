@@ -9,19 +9,20 @@ const Watchlist = () => {
     return (
       <div className="bg-black text-white min-h-screen">
         <Navbar />
-        <div className="p-8 text-center">
-          <h1 className="text-3xl font-bold">Your Watchlist is empty 😢</h1>
+        <div className="p-8 text-center ">
+          <h1 className="text-3xl font-bold mt-8">Your Watchlist is empty 😢</h1>
           <p className="mt-2 text-gray-400">Add movies from Home page to see them here.</p>
         </div>
       </div>
     );
 
   return (
+    
     <div className="bg-black text-white min-h-screen">
       <Navbar />
 
       <div className="p-8">
-        <h1 className="text-3xl font-bold mb-6">My List</h1>
+        <h1 className="text-3xl font-bold mb-6 mt-10">My List</h1>
 
         {/* Horizontal scroll like Netflix */}
         <div className="flex space-x-6 overflow-x-scroll scrollbar-hide">
